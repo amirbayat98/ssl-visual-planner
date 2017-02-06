@@ -1,5 +1,6 @@
 #include "playoff.h"
 
+
 playoff::playoff(QWidget *parent) :
     QWidget(parent)
 {
@@ -12,6 +13,8 @@ playoff::playoff(QWidget *parent) :
     showAll = false;
     agentSize = 1;
     currentSkillNum = 0;
+
+
 
     POFieldSelected = false;
 
@@ -35,6 +38,8 @@ playoff::playoff(QWidget *parent) :
 
     chance   = 1;
     lastDist = 1.5;
+
+
 
 }
 
@@ -2207,6 +2212,8 @@ void playoff::writeJSON(QJsonObject &json, QString dir) const
     json["plans"] = array; // save in json
 }
 
+
+
 void playoff::writePlanJSON(QJsonObject &json, int index ) const
 {
     switch (myPlan->planList[index].planMode)
@@ -2497,3 +2504,111 @@ Vector2I playoff::convertPosInverse(Vector2D _input) const
 
     return Vector2I(tempX, tempY);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////we added tihs!!
+void playoff::writeProto(PlanBook* pb,int index, const PlayOffRobot &_index,const QList<PlayOffRobot> &__index)
+{
+
+    Plans* plan = pb -> add_plans();
+    AgentInitPos* aip = NULL;
+    Agents* agent = plan->add_agents();
+    Tags* tag = NULL;
+    Positions* pos = NULL;
+    Skill* skill = NULL;
+    Target* target = NULL;
+//PLAN
+    plan -> set_chance(static_cast<int>(myPlan->planList[index].chance));
+    switch (myPlan->planList[index].planMode)
+    {
+    case KICKOFF:
+            plan -> set_planmode("KICKOFF");
+        break;
+    case DIRECT:
+        plan -> set_planmode("DIRECT");
+        break;
+    case INDIRECT:
+        plan -> set_planmode("INDIRECT");
+        break;
+    }
+//AGENTINIPOS
+
+    for(int i = 0; i < myPlan->planList[index].agentSize; i++)
+    {
+        aip = plan->add_agentinitpos();
+        Vector2D agentPos = convertPos(Vector2I(myPlan->planList[index].initPos.AgentX[i],
+                                           myPlan->planList[index].initPos.AgentY[i]));
+        aip->set_x(agentPos.x);
+        aip->set_y(agentPos.y);
+    }
+
+//AGENTS
+   //agent->set_id();
+   Q_FOREACH(auto i, __index)
+   {
+       pos = agent->add_p();
+       Vector2D _pos = convertPos(Vector2I(i.x, i.y));
+
+       pos->set_pos_x(_pos.x);
+       pos->set_pos_y(_pos.y);
+       pos->set_angle(i.angle);
+       pos->set_tolerance(i.tolerance);
+
+
+       skill = pos->add_skills();
+       for(int i = 0; i < _index.skillSize ; i++)
+       {
+           switch (_index.skill[i]) {
+           case NoSkill:
+               skill->set_name("NoSkill");
+               break;
+           case PassSkill:
+           {
+               target = skill->mutable_target();
+               target->set_agent(_index.target.agent);
+               target->set_index(_index.target.index);
+               skill->set_name("PassSkill");
+           }
+               break;
+           case ReceivePassSkill:
+               skill->set_name("ReceivePassSkill");
+               break;
+           case ShotToGoalSkill:
+               skill->set_name("ShotToGoalSkill");
+               break;
+           case ChipToGoalSkill:
+               skill->set_name("ChipToGoalSkill");
+               break;
+           case OneTouchSkill:
+               skill->set_name("OneTouchSkill");
+               break;
+           case MoveSkill:
+               skill->set_name("MoveSkill");
+               break;
+           case ReceivePassIASkill:
+               skill->set_name("ReceivePassIASkill");
+               break;
+
+           }
+           skill->set_primary(_index.skillData[i][0]);
+           skill->set_secondry(_index.skillData[i][1]);
+           skill->set_flag(_index.IAMode[i]);
+       }
+
+    }
+//BALLINITPOS
+   BallInitPos* bip = plan->mutable_bip();
+   Vector2D BallPos = convertPos(Vector2I(myPlan->planList[index].initPos.ballX,
+                                          myPlan->planList[index].initPos.ballY));
+   bip->set_x(BallPos.x);
+   bip->set_y(BallPos.y);
+//TAGS
+   QStringList tagList = myPlan->planList[index].tags.split("|");
+   Q_FOREACH(QString tTag, tagList) {
+       tag = plan->add_tags();
+       tag->set_s(tTag.toStdString());
+   }
+
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

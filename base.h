@@ -24,6 +24,7 @@ struct LabelMode {
 };
 
 struct Robot {
+
     int x, y;
     QString label;
     int agent;

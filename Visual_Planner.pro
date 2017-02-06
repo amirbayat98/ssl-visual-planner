@@ -6,6 +6,7 @@
 
 QT       += core gui\
             sql
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +21,12 @@ SOURCES += main.cpp\
     tags.cpp \
     agentplanclass.cpp \
     playoffplansql.cpp \
-    playonplansql.cpp
+    playonplansql.cpp \
+    ../../ssl-playbook.pb.cc \
+    server.cpp \
+    client.cpp \
+    logger.cpp \
+    statuswidget.cpp
 
 HEADERS  += mainwindow.h \
     base.h \
@@ -30,14 +36,23 @@ HEADERS  += mainwindow.h \
     include/ul.h \
     agentplanclass.h \
     playoffplansql.h \
-    playonplansql.h
+    playonplansql.h \
+    ../../ssl-playbook.pb.h \
+    server.h \
+    client.h \
+    logger.h \
+    statuswidget.h
 
 
 INCLUDEPATH += $$PWD/include
+INCLUDEPATH += /usr/local/include/
 
 FORMS    += mainwindow.ui \
             tags.ui
 
+LIBS += -L/usr/lib/x86_64-linux-gnu \
+        -lprotobuf \
+        -lprotobuf-lite
 
 MOC_DIR     = $$PWD/moc_objs
 OBJECTS_DIR = $$PWD/objs

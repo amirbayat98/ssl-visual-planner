@@ -22,6 +22,9 @@
 #include "playon.h"
 #include "tags.h"
 
+#include "client.h"
+#include "server.h"
+
 const QString DEFAULT_DIR_KEY("default_dir");
 
 const QString settingAddress(QDir::currentPath()+"/data/setting.ini");
@@ -103,6 +106,9 @@ private:
     tags *tagDialog;
 
 private slots:
+    /**
+     * @brief playOnActivePassO : working greatly
+     */
     void playOnActivePassO();
     void playOnActivePassD();
     void playOnActiveMoveO();
@@ -174,6 +180,10 @@ private slots:
 
     void tagDialogExit(QString str);
     void updateTags(QString str);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;

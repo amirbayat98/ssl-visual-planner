@@ -1020,3 +1020,23 @@ void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
         playOff->apply(playOffCurrentPlan);
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void MainWindow::on_pushButton_clicked()
+{
+    Server s{};
+    PlanBook* _pb = playOff->pb;
+    s.send(_pb);
+
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Client c{};
+    PlanBook* _pb{};
+    c.receive(_pb);
+    playOff->pb = _pb;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////

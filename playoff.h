@@ -21,8 +21,10 @@
 #include "base.h"
 #include "playoffplansql.h"
 #include "ul.h"
+#include "../../ssl-playbook.pb.h"
 
 struct TimeAndIndex {
+
     long time;
     int index;
     int agent;
@@ -121,7 +123,12 @@ public:
     inline void setLastDist(double _lastDist) {
         lastDist = _lastDist;
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                            //
+    PlanBook* pb;                                                                                           //
+    void writeProto(PlanBook* pb,int index, const PlayOffRobot &_index,const QList<PlayOffRobot> &__index); //
+                                                                                                            //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private:
     QLabel *fieldLabel;
     QPixmap *fieldPix;

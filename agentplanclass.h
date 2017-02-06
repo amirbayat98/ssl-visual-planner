@@ -8,6 +8,9 @@
 
 class AgentPlanClass {
 private:
+    /**
+     * @brief agents : making objects from Agents class
+     */
     Agent agents[5];
     EndPolicy endMode;
     int endPolicy;
