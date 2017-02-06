@@ -25,6 +25,7 @@
 #include "client.h"
 #include "server.h"
 
+
 const QString DEFAULT_DIR_KEY("default_dir");
 
 const QString settingAddress(QDir::currentPath()+"/data/setting.ini");
@@ -56,6 +57,8 @@ public:
     void mouseMoveEvent(QMouseEvent *);
     void keyPressEvent(QKeyEvent *);
     void contextMenuEvent(QContextMenuEvent *event);
+
+    bool receive();
 
     ~MainWindow();
 

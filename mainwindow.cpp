@@ -110,6 +110,14 @@ void MainWindow::geometryIni()
     ui->ballLabel->setGeometry(ballLabelRect);
     ui->ballLabel->setStyleSheet("QLabel {background-color: orange; color: #fff; font-weight: bold;}");
     ui->ballLabel->setAlignment(Qt::AlignCenter|Qt::AlignHCenter);
+
+
+
+    Client c{};
+    PlanBook* _pb{};
+    c.receive(_pb);
+    playOff->pb = _pb;
+
 }
 
 void MainWindow::resizeEvent(QResizeEvent *)
@@ -1022,6 +1030,7 @@ void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 void MainWindow::on_pushButton_clicked()
 {
     Server s{};
@@ -1029,14 +1038,10 @@ void MainWindow::on_pushButton_clicked()
     s.send(_pb);
 
 }
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    Client c{};
-    PlanBook* _pb{};
-    c.receive(_pb);
-    playOff->pb = _pb;
+bool MainWindow::receive(){
+    return true;
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

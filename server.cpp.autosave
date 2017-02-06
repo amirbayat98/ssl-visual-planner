@@ -65,7 +65,7 @@ void Server::change_interface(const string & net_interface)
 bool Server::send(const PlanBook* packet)
 {
     QByteArray datagram;
-    //datagram.resize(packet->ByteSize());
+    datagram.resize(packet->ByteSize());
     bool success = packet->SerializeToArray(datagram.data(), datagram.size());
     if(!success) {
         //TODO: print useful info
