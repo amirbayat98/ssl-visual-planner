@@ -18,6 +18,8 @@
 #include <QJsonDocument>
 #include <QDebug>
 
+
+#include "receive.h"
 #include "base.h"
 #include "playoffplansql.h"
 #include "ul.h"
@@ -37,6 +39,8 @@ class playoff : public QWidget
 public:
     explicit playoff(QWidget *parent = 0);
     ~playoff();
+
+    Receive* rc;
 
     enum toolMode {
         TMOVE = 1,
@@ -126,8 +130,9 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                             //
     PlanBook* pb;                                                                                           //
-    void writeProto(PlanBook* pb,int index, const PlayOffRobot &_index,const QList<PlayOffRobot> &__index); //
-                                                                                                            //
+    void writeProto(PlanBook* pb,int index);//, const PlayOffRobot &_index,const QList<PlayOffRobot> &__index); //
+    playOffPlanSQL *myPlan;
+    //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private:
     QLabel *fieldLabel;
@@ -206,9 +211,9 @@ private:
 
     Vector2D convertPos(Vector2I _input) const;
     Vector2I convertPosInverse(Vector2D _input) const;
-
-    playOffPlanSQL *myPlan;
-
+/////////////////////////////////////////////////////////////////////////////////////////
+    //playOffPlanSQL *myPlan;
+/////////////////////////////////////////////////////////////////////////////////////////
     //copy & paste
     void POCopy(int filter);
     void POPaste();

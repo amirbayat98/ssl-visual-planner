@@ -227,6 +227,13 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Send</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="browseBtn">
        <property name="text">
         <string>Browse</string>
@@ -329,19 +336,6 @@
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>640</y>
-      <width>80</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Send</string>
-    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     server.cpp \
     client.cpp \
     logger.cpp \
-    statuswidget.cpp
+    statuswidget.cpp \
+    receive.cpp
 
 HEADERS  += mainwindow.h \
     base.h \
@@ -41,7 +42,8 @@ HEADERS  += mainwindow.h \
     server.h \
     client.h \
     logger.h \
-    statuswidget.h
+    statuswidget.h \
+    receive.h
 
 
 INCLUDEPATH += $$PWD/include
